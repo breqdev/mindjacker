@@ -99,7 +99,7 @@ class Brick:
 		system("mpg123 "+name)
 	
 	def playNote(self, note, time, nxt=True, wait=True):
-		"""Play a note.
+		"""Play a note, e.g., 'a5', 'f#3', 'g#', 'c', etc.
 		If wait is false, don't wait for completion."""
 		# Separate the note from the octave
 		if len(note) == 1:
@@ -116,30 +116,8 @@ class Brick:
 				noteStr = note[0].lower()
 				octave = int(note[1])
 		# I got this algorithm from www.musique.com/schem/freq.html
-		if noteStr == "a":
-			noteNum = 0
-		elif noteStr == "a#":
-			noteNum = 1
-		elif noteStr == "b":
-			noteNum = 2
-		elif noteStr == "c":
-			noteNum = 3
-		elif noteStr == "c#":
-			noteNum = 4
-		elif noteStr == "d":
-			noteNum = 5
-		elif noteStr == "d#":
-			noteNum = 6
-		elif noteStr == "e":
-			noteNum = 7
-		elif noteStr == "f":
-			noteNum = 8
-		elif noteStr == "f#":
-			noteNum = 9
-		elif noteStr == "g":
-			noteNum = 10
-		elif noteStr == "g#":
-			noteNum = 11
+                notes = {"a":0, "a#":1, "b":2, "c":3, "c#":4, "d":5, "d#":6, "e":7, "f":8, "f#":9, "g":10, "g#":11}
+		noteNum = notes[noteStr]
 		octave -= 1
 		a = 2**octave
 		b = 1.059463**noteNum
@@ -148,6 +126,7 @@ class Brick:
 		self.dev.play_tone(note, time*1000)
 		if wait:
 			sleep(time)
+
 
 	
 	def touch(self, port):
